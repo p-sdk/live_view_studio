@@ -45,6 +45,10 @@ defmodule LiveViewStudioWeb.SalesDashboardLive do
         </div>
       </div>
 
+      <p>
+        Last updated at: <%= format_time(@last_updated_at) %>
+      </p>
+
       <div class="controls">
         <form phx-change="select-refresh">
           <label for="refresh">
@@ -84,7 +88,8 @@ defmodule LiveViewStudioWeb.SalesDashboardLive do
     assign(socket,
       new_orders: Sales.new_orders(),
       sales_amount: Sales.sales_amount(),
-      satisfaction: Sales.satisfaction()
+      satisfaction: Sales.satisfaction(),
+      last_updated_at: Timex.now()
     )
   end
 
@@ -94,5 +99,9 @@ defmodule LiveViewStudioWeb.SalesDashboardLive do
 
   defp refresh_options do
     [{"1s", 1}, {"5s", 5}, {"15s", 15}, {"30s", 30}, {"60s", 60}]
+  end
+
+  defp format_time(time) do
+    Timex.format!(time, "%H:%M:%S", :strftime)
   end
 end
