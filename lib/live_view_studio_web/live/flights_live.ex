@@ -13,7 +13,7 @@ defmodule LiveViewStudioWeb.FlightsLive do
         airports: [],
         loading: false
       )
-    {:ok, socket}
+    {:ok, socket, temporary_assigns: [flights: []]}
   end
 
   def render(assigns) do
