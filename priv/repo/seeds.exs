@@ -14,6 +14,7 @@ alias LiveViewStudio.Repo
 alias LiveViewStudio.Boats.Boat
 alias LiveViewStudio.Stores.Store
 alias LiveViewStudio.Flights.Flight
+alias LiveViewStudio.GitRepos.GitRepo
 alias LiveViewStudio.Servers.Server
 alias LiveViewStudio.Donations.Donation
 alias LiveViewStudio.PizzaOrders.PizzaOrder
@@ -317,6 +318,78 @@ alias LiveViewStudio.PizzaOrders.PizzaOrder
   destination: "DEN",
   departure_time: Timex.shift(Timex.now(), days: 3),
   arrival_time: Timex.shift(Timex.now(), days: 3, hours: 4)
+}
+|> Repo.insert!()
+
+%GitRepo{
+  name: "elixir",
+  url: "https://github.com/elixir-lang/elixir",
+  owner_login: "elixir-lang",
+  owner_url: "https://github.com/elixir-lang",
+  fork: false,
+  stars: 16900,
+  language: "elixir",
+  license: "apache"
+}
+|> Repo.insert!()
+
+%GitRepo{
+  name: "phoenix",
+  url: "https://github.com/phoenixframework/phoenix",
+  owner_login: "phoenixframework",
+  owner_url: "https://github.com/phoenixframework",
+  fork: false,
+  stars: 15200,
+  language: "elixir",
+  license: "mit"
+}
+|> Repo.insert!()
+
+%GitRepo{
+  name: "phoenix_live_view",
+  url: "https://github.com/phoenixframework/phoenix_live_view",
+  owner_login: "phoenixframework",
+  owner_url: "https://github.com/phoenixframework",
+  fork: false,
+  stars: 3000,
+  language: "elixir",
+  license: "mit"
+}
+|> Repo.insert!()
+
+%GitRepo{
+  name: "phoenix_live_view",
+  url: "https://github.com/clarkware/phoenix_live_view",
+  owner_login: "clarkware",
+  owner_url: "https://github.com/clarkware",
+  fork: true,
+  stars: 0,
+  language: "elixir",
+  license: "mit"
+}
+|> Repo.insert!()
+
+%GitRepo{
+  name: "rails",
+  url: "https://github.com/rails/rails",
+  owner_login: "rails",
+  owner_url: "https://github.com/rails",
+  fork: false,
+  stars: 45600,
+  language: "ruby",
+  license: "mit"
+}
+|> Repo.insert!()
+
+%GitRepo{
+  name: "ruby",
+  url: "https://github.com/ruby/ruby",
+  owner_login: "ruby",
+  owner_url: "https://github.com/ruby",
+  fork: false,
+  stars: 16800,
+  language: "ruby",
+  license: "bsdl"
 }
 |> Repo.insert!()
 
