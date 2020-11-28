@@ -2,17 +2,29 @@ defmodule LiveViewStudioWeb.SortLive do
   use LiveViewStudioWeb, :live_view
 
   alias LiveViewStudio.Donations
+  import LiveViewStudioWeb.ParamHelpers,
+    only: [param_to_integer: 2, param_or_first_permitted: 3]
+
+  @permitted_sort_bys ~w(item quantity days_until_expires)
+  @permitted_sort_orders ~w(asc desc)
 
   def mount(_params, _session, socket) do
     {:ok, socket, temporary_assigns: [donations: []]}
   end
 
   def handle_params(params, _url, socket) do
-    page = String.to_integer(params["page"] || "1")
-    per_page = String.to_integer(params["per_page"] || "5")
+    page = param_to_integer(params["page"], 1)
+    per_page = param_to_integer(params["per_page"], 5)
 
-    sort_by = (params["sort_by"] || "id") |> String.to_atom()
-    sort_order = (params["sort_order"] || "asc") |> String.to_atom()
+    sort_by =
+      params
+      |> param_or_first_permitted("sort_by", @permitted_sort_bys)
+      |> String.to_atom()
+
+    sort_order =
+      params
+      |> param_or_first_permitted("sort_order", @permitted_sort_orders)
+      |> String.to_atom()
 
     paginate_options = %{page: page, per_page: per_page}
     sort_options = %{sort_by: sort_by, sort_order: sort_order}
