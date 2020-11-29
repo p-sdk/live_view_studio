@@ -64,25 +64,25 @@ defmodule LiveViewStudioWeb.ServersLive do
       <div class="main">
         <div class="wrapper">
           <%= if @live_action == :new do %>
-            <%= f = form_for @changeset, "", phx_submit: "save" %>
+            <%= f = form_for @changeset, "", phx_submit: "save", phx_change: "validate" %>
               <div class="field">
                 <%= label f, :name %>
-                <%= text_input f, :name %>
+                <%= text_input f, :name, phx_debounce: 1000 %>
                 <%= error_tag f, :name %>
               </div>
               <div class="field">
                 <%= label f, :framework %>
-                <%= text_input f, :framework %>
+                <%= text_input f, :framework, phx_debounce: 1000 %>
                 <%= error_tag f, :framework %>
               </div>
               <div class="field">
                 <%= label f, :size, "Size (MB)" %>
-                <%= text_input f, :size %>
+                <%= text_input f, :size, phx_debounce: 1000 %>
                 <%= error_tag f, :size %>
               </div>
               <div class="field">
                 <%= label f, :git_repo %>
-                <%= text_input f, :git_repo %>
+                <%= text_input f, :git_repo, phx_debounce: 1000 %>
                 <%= error_tag f, :git_repo %>
               </div>
               <%= submit "Save", phx_disable_with: "Saving..." %>
@@ -146,6 +146,16 @@ defmodule LiveViewStudioWeb.ServersLive do
         socket = assign(socket, :changeset, changeset)
         {:noreply, socket}
     end
+  end
+
+  def handle_event("validate", %{"server" => params}, socket) do
+    changeset =
+      %Server{}
+      |> Servers.change_server(params)
+      |> Map.put(:action, :insert)
+
+    socket = assign(socket, changeset: changeset)
+    {:noreply, socket}
   end
 
   defp link_body(server) do
