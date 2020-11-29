@@ -53,10 +53,7 @@ defmodule LiveViewStudioWeb.VolunteersLive do
     volunteer = Volunteers.get_volunteer!(id)
 
     {:ok, _volunteer} =
-      Volunteers.update_volunteer(
-        volunteer,
-        %{checked_out: !volunteer.checked_out}
-      )
+      Volunteers.toggle_status_volunteer(volunteer)
 
     {:noreply, socket}
   end
