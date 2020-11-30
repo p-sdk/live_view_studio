@@ -18,9 +18,11 @@ import NProgress from "nprogress";
 import { LiveSocket } from "phoenix_live_view";
 
 import InfiniteScroll from "./infinite-scroll";
+import DatePicker from "./date-picker";
 
 let Hooks = {
-  InfiniteScroll: InfiniteScroll
+  InfiniteScroll: InfiniteScroll,
+  DatePicker: DatePicker
 };
 
 let csrfToken = document
