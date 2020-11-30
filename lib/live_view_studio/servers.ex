@@ -8,8 +8,10 @@ defmodule LiveViewStudio.Servers do
 
   alias LiveViewStudio.Servers.Server
 
+  @topic inspect(__MODULE__)
+
   def subscribe() do
-    Phoenix.PubSub.subscribe(LiveViewStudio.PubSub, "servers")
+    Phoenix.PubSub.subscribe(LiveViewStudio.PubSub, @topic)
   end
 
   @doc """
@@ -118,7 +120,7 @@ defmodule LiveViewStudio.Servers do
   defp toggle_status("down"), do: "up"
 
   def broadcast({:ok, server}, event) do
-    Phoenix.PubSub.broadcast(LiveViewStudio.PubSub, "servers", {event, server})
+    Phoenix.PubSub.broadcast(LiveViewStudio.PubSub, @topic, {event, server})
     {:ok, server}
   end
 

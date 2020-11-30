@@ -8,8 +8,10 @@ defmodule LiveViewStudio.Volunteers do
 
   alias LiveViewStudio.Volunteers.Volunteer
 
+  @topic inspect(__MODULE__)
+
   def subscribe do
-    Phoenix.PubSub.subscribe(LiveViewStudio.PubSub, "volunteers")
+    Phoenix.PubSub.subscribe(LiveViewStudio.PubSub, @topic)
   end
 
   @doc """
@@ -70,7 +72,7 @@ defmodule LiveViewStudio.Volunteers do
   def broadcast({:ok, volunteer}, event) do
     Phoenix.PubSub.broadcast(
       LiveViewStudio.PubSub,
-      "volunteers",
+      @topic,
       {event, volunteer}
     )
 
