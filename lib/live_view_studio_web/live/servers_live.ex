@@ -94,9 +94,12 @@ defmodule LiveViewStudioWeb.ServersLive do
             <div class="card">
               <div class="header">
                 <h2><%= @selected_server.name %></h2>
-                <span class="<%= @selected_server.status %>">
+                <button class="<%= @selected_server.status %>"
+                  phx-click="toggle-status"
+                  phx-value-id="<%= @selected_server.id %>"
+                  phx-disable-with="Saving...">
                   <%= @selected_server.status %>
-                </span>
+                </button>
               </div>
               <div class="body">
                 <div class="row">
@@ -155,6 +158,20 @@ defmodule LiveViewStudioWeb.ServersLive do
       |> Map.put(:action, :insert)
 
     socket = assign(socket, changeset: changeset)
+    {:noreply, socket}
+  end
+
+
+  def handle_event("toggle-status", %{"id" => id}, socket) do
+    server = Servers.get_server!(id)
+    {:ok, server} = Servers.toggle_status_server(server)
+
+    socket =
+      assign(socket,
+        selected_server: server,
+        servers: Servers.list_servers()
+      )
+
     {:noreply, socket}
   end
 

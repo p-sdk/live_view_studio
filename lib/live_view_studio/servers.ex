@@ -103,4 +103,11 @@ defmodule LiveViewStudio.Servers do
   def change_server(%Server{} = server, attrs \\ %{}) do
     Server.changeset(server, attrs)
   end
+
+  def toggle_status_server(%Server{} = server) do
+    update_server(server, %{status: toggle_status(server.status)})
+  end
+
+  defp toggle_status("up"), do: "down"
+  defp toggle_status("down"), do: "up"
 end
