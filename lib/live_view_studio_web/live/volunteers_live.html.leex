@@ -16,6 +16,7 @@
       <%= telephone_input f, :phone,
                           placeholder: "Phone",
                           autocomplete: "off",
+                          phx_hook: "PhoneNumber",
                           phx_debounce: "blur" %>
       <%= error_tag f, :phone %>
     </div>

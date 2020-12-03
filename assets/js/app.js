@@ -19,10 +19,12 @@ import { LiveSocket } from "phoenix_live_view";
 
 import InfiniteScroll from "./infinite-scroll";
 import DatePicker from "./date-picker";
+import PhoneNumber from "./phone-number";
 
 let Hooks = {
   InfiniteScroll: InfiniteScroll,
-  DatePicker: DatePicker
+  DatePicker: DatePicker,
+  PhoneNumber: PhoneNumber
 };
 
 let csrfToken = document
